@@ -14,7 +14,7 @@ let food = {
 
 function criarBG()
 {
-    context.fillStyle = "lightgreen";
+    context.fillStyle = "black";
     context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
@@ -22,15 +22,15 @@ function criarCobrinha()
 {
     for(i = 0; i < snake.length; i++)
     {
-        context.fillStyle = "green";
-        context.fillRect(snake[i].x, snake[i].y, 10, 10);//Os dois últimos números indicam a largura e altura da cobrinha
+        context.fillStyle = "white";
+        context.fillRect(snake[i].x, snake[i].y, box, box);//Os dois últimos números indicam a largura e altura da cobrinha
     }
 }
 
 function drawFood()
 {
     context.fillStyle = "red";
-    context.fillRect(food.x, food.y, 10, 10);
+    context.fillRect(food.x, food.y, box, box);
 }
 
 document.addEventListener('keydown', update);
@@ -81,7 +81,15 @@ function iniciarJogo()
     if(direction == "down")
         snakeY += box;
 
-    snake.pop();
+    if(snake[0].x != food.x || snake[0].y != food.y)
+    {
+        snake.pop();
+    }
+    else
+    {
+        food.x = Math.floor(Math.random() * 15 + 1) * box;
+        food.y = Math.floor(Math.random() * 15 + 1) * box;
+    }
 
     let newHead = {
         x: snakeX,
